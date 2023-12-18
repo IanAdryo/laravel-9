@@ -1,5 +1,6 @@
 <x-layouts.app title="Blog" meta-description="Blog meta description">
 
+
     <h1>Blog</h1>
     <a href="{{ route('post.create') }}">Create new post</a>
 

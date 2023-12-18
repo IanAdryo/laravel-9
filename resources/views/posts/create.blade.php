@@ -15,6 +15,7 @@
     </form>
 
 
+
     <a href="{{ route('post.index') }}">regresar</a>
 
 
