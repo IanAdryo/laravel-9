@@ -11,6 +11,13 @@
             </a>
         </h2> &nbsp;
         <a href="{{ route('post.edit', $post) }}">Edit</a>
+        &nbsp;
+        <form action="{{ route('post.destroy', $post) }}" method="POST">
+        @csrf
+        @method('DELETE')
+        <button type="submit">Delete</button>
+        </form>
+
     </div>
     @endforeach
 </x-layouts.app>
