@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SavePostRequest;
 use App\Models\Post;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -24,23 +25,26 @@ class PostController extends Controller{
 
     public function create() {
 
-        return view('posts.create');
+        return view('posts.create', ['post' => new Post]);
     }
 
-    public function store(Request $request) {
+    public function store(SavePostRequest $request) {
 
-        $request->validate([
-            'title' => ['required'],
-            'body' => ['required']
-        ]);
-        $post = new Post;
-        $post->title = $request->input('title');
-        $post->body = $request->input('body');
-        $post->save();
+        // $post = new Post;
+        // $post->title = $request->input('title');
+        // $post->body = $request->input('body');
+        // $post->save();
 
-        session()->flash('status', 'Post created!');
+        // Post::create([
+        //     'title' => $request->input('title'),
+        //     'body' => $request->input('body'),
+        // ]);
+
+        Post::create($request->validated());
+
+        //session()->flash('status', 'Post created!');
         //return redirect()->route('post.index'); //Sin helper
-        return to_route('post.index');  //con helper
+        return to_route('post.index')->with('status', 'Post created!');  //con helper y session por with
 
     }
 
@@ -48,8 +52,23 @@ class PostController extends Controller{
         return view('posts.edit', ['post' => $post]);
     }
 
-    public function update() {
-        return 'Edit post';
+    public function update(SavePostRequest $request, Post $post) {
+
+        //$post = Post::find($post);
+        // $post->title = $request->input('title');
+        // $post->body = $request->input('body');
+        // $post->save();
+
+        // $post->update([
+        //     'title' => $request->input('title'),
+        //     'body' => $request->input('body'),
+        // ]);
+
+        $post->update($request->validated());
+
+        // session()->flash('status', 'Post updated!');
+        //return redirect()->route('post.index'); //Sin helper
+        return to_route('post.show', $post)->with('status', 'Post updated!');  //con helper
     }
 
 }
