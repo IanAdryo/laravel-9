@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Models\Post;
 
 /*
@@ -17,6 +18,7 @@ use App\Models\Post;
 
 Route::view('/', 'welcome')->name('home');
 Route::view('/contact', 'contact')->name('contact');
+Route::view('/about', 'about')->name('about');
 
 // Route::get('/blog', [PostController::class, 'index'])->name('post.index');
 // Route::get('/blog/create', [PostController::class, 'create'])->name('post.create');
@@ -31,5 +33,8 @@ Route::resource('blog', PostController::class, [
     'parameters' => ['blog' => 'post'],
 ]);
 
-Route::view('/about', 'about')->name('about');
+Route::view('/login', 'auth.register')->name('login');
 
+
+Route::view('/register', 'auth.register')->name('register');
+Route::post('/register', [RegisteredUserController::class, 'store'])->name('register');
