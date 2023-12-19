@@ -7,6 +7,7 @@
     <meta name="description" content="@yield('meta-desciption', 'Default meta description')"> --}}
     <title>aprendible - {{ $title ?? "" }}</title>
     <meta name="description" content="{{ $metaDesciption ?? 'Default meta description' }}">
+    @vite(['resources/js/app.js', 'resources/css/app.scss'])
 </head>
 <body>
     {{-- @include('partials.navigation') --}}
